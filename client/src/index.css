@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color: #111827;
+  background: #fafafc;
+  font-family: 'Outfit', sans-serif;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at top, rgba(124, 58, 237, 0.08), transparent 25%),
+    linear-gradient(180deg, #fafafc 0%, #f5f3ff 100%);
+}
+
+* { box-sizing: border-box; }
