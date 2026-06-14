@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL || '/api'
+  baseURL: 'https://cashtrack-57np.onrender.com'
 });
 
 api.interceptors.request.use((config) => {
