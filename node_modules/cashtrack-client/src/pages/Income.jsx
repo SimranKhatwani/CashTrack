@@ -19,23 +19,35 @@ export default function Income() {
   const { register, handleSubmit, reset } = useForm();
 
   const load = async () => {
-    const res = await api.get('/income');
-    setItems(res.data);
+    try {
+      const res = await api.get('/api/income');
+      setItems(res.data);
+    } catch {
+      toast.error('Failed to load income records');
+    }
   };
 
   useEffect(() => { load(); }, []);
 
   const onSubmit = async (values) => {
-    await api.post('/income', values);
-    toast.success('Income added');
-    reset();
-    load();
+    try {
+      await api.post('/api/income', values);
+      toast.success('Income added');
+      reset();
+      load();
+    } catch (err) {
+      toast.error(err?.response?.data?.message || 'Failed to add income');
+    }
   };
 
   const remove = async (id) => {
-    await api.delete(`/income/${id}`);
-    toast.success('Income removed');
-    load();
+    try {
+      await api.delete(`/api/income/${id}`);
+      toast.success('Income removed');
+      load();
+    } catch {
+      toast.error('Failed to delete income');
+    }
   };
 
   return (

@@ -21,23 +21,35 @@ export default function Expense() {
   const { register, handleSubmit, reset } = useForm();
 
   const load = async () => {
-    const res = await api.get('/expense');
-    setItems(res.data);
+    try {
+      const res = await api.get('/api/expense');
+      setItems(res.data);
+    } catch {
+      toast.error('Failed to load expense records');
+    }
   };
 
   useEffect(() => { load(); }, []);
 
   const onSubmit = async (values) => {
-    await api.post('/expense', values);
-    toast.success('Expense added');
-    reset();
-    load();
+    try {
+      await api.post('/api/expense', values);
+      toast.success('Expense added');
+      reset();
+      load();
+    } catch (err) {
+      toast.error(err?.response?.data?.message || 'Failed to add expense');
+    }
   };
 
   const remove = async (id) => {
-    await api.delete(`/expense/${id}`);
-    toast.success('Expense removed');
-    load();
+    try {
+      await api.delete(`/api/expense/${id}`);
+      toast.success('Expense removed');
+      load();
+    } catch {
+      toast.error('Failed to delete expense');
+    }
   };
 
   return (

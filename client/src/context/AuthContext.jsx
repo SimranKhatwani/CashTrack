@@ -15,7 +15,7 @@ export function AuthProvider({ children }) {
       return;
     }
 
-    api.get('/auth/me')
+    api.get('/api/auth/me')
       .then((res) => setUser(res.data.user))
       .catch(() => {
         localStorage.removeItem('cashtrack_token');
@@ -24,7 +24,7 @@ export function AuthProvider({ children }) {
   }, []);
 
   const login = async (email, password) => {
-    const res = await api.post('/auth/login', { email, password });
+    const res = await api.post('/api/auth/login', { email, password });
     localStorage.setItem('cashtrack_token', res.data.token);
     setUser(res.data.user);
     toast.success('Welcome back to CashTrack');

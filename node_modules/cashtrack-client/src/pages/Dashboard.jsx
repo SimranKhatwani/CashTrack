@@ -11,7 +11,7 @@ export default function Dashboard() {
   const [data, setData] = useState(null);
 
   useEffect(() => {
-    api.get('/dashboard').then((res) => setData(res.data)).catch(() => setData({ totalIncome: 0, totalExpense: 0, balance: 0, recent: [], categoryBreakdown: {} }));
+    api.get('/api/dashboard').then((res) => setData(res.data)).catch(() => setData({ totalIncome: 0, totalExpense: 0, balance: 0, recent: [], categoryBreakdown: {} }));
   }, []);
 
   if (!data) return <div className="rounded-3xl bg-white p-8 text-violet-700 shadow-lg">Loading dashboard…</div>;

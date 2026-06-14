@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 export default function Login() {
   const { login } = useAuth();
@@ -12,8 +13,12 @@ export default function Login() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async (values) => {
-    await login(values.email, values.password);
-    navigate('/');
+    try {
+      await login(values.email, values.password);
+      navigate('/');
+    } catch (err) {
+      toast.error(err?.response?.data?.message || 'Login failed. Please check your credentials.');
+    }
   };
 
   return (
