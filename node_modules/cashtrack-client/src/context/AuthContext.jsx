@@ -31,14 +31,14 @@ export function AuthProvider({ children }) {
   };
 
   const register = async (name, email, password) => {
-    const res = await api.post('/auth/register', { name, email, password });
+    const res = await api.post('/api/auth/register', { name, email, password });
     localStorage.setItem('cashtrack_token', res.data.token);
     setUser(res.data.user);
     toast.success('Account created successfully');
   };
 
   const updateProfile = async (payload) => {
-    const res = await api.put('/auth/profile', payload);
+    const res = await api.put('/api/auth/profile', payload);
     setUser(res.data.user);
     toast.success('Profile updated');
   };
