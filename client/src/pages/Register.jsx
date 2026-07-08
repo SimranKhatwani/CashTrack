@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { motion } from 'framer-motion';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { useAuth } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 export default function Register() {
   const { register: registerUser } = useAuth();
@@ -12,8 +13,12 @@ export default function Register() {
   const { register, handleSubmit, formState: { errors, isSubmitting } } = useForm();
 
   const onSubmit = async (values) => {
-    await registerUser(values.name, values.email, values.password);
-    navigate('/');
+    try {
+      await registerUser(values.name, values.email, values.password);
+      navigate('/');
+    } catch (err) {
+      toast.error(err?.response?.data?.message || 'Registration failed. Please try again.');
+    }
   };
 
   return (
